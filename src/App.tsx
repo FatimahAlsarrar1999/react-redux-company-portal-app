@@ -1,36 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { Button, Box, Grid, Typography } from '@mui/material'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Companise from './compnents/companies';
+import Home from './compnents/Home';
+import Error from './compnents/Error';
+import Navbar from './compnents/Navbar';
+import SingleCompany from './compnents/SingleCompany';
 
-import { decrement, increment } from './features/counterSlice'
-import { RootState } from './store'
-import './App.css'
-
-function App() {
-  const count = useSelector((state: RootState) => state.counter.value)
-  const dispatch = useDispatch()
-
+const App =()=> {
   return (
-    <div className="App">
-      <h1>Vite + React + Toolkit + MUI</h1>
-      <Box sx={{ width: '100%' }}>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={5}>
-            <Button variant="contained" onClick={() => dispatch(increment())}>
-              Increment
-            </Button>
-          </Grid>
-          <Grid item xs={2}>
-            <Typography>{count}</Typography>
-          </Grid>
-          <Grid item xs={5}>
-            <Button variant="contained" onClick={() => dispatch(decrement())}>
-              Decrement
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
-    </div>
-  )
-}
+  <BrowserRouter>
+   <Navbar/>
+   <Routes>
+   <Route path='/' element={<Home/>}/>
+   <Route path='/companies' element={<Companise/>}/>
+   <Route path='/companies/:id' element={<SingleCompany/>}/> 
+   <Route path='*' element={<Error/>}/>
+   </Routes>
+  </BrowserRouter>
+  );
+};
 
-export default App
+export default App;
